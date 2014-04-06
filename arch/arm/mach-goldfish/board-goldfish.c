@@ -64,6 +64,10 @@ static void __init goldfish_init(void)
 void goldfish_mask_irq(struct irq_data *d)
 {
 	writel(d->irq, IO_ADDRESS(GOLDFISH_INTERRUPT_BASE) + GOLDFISH_INTERRUPT_DISABLE);
+
+	if(d->irq > 26)
+		writel(d->irq, IO_ADDRESS(GOLDFISH_INTERRUPT_BASE) + GOLDFISH_INTERRUPT_TRIGGER);
+
 }
 
 void goldfish_unmask_irq(struct irq_data *d)
